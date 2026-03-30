@@ -10,96 +10,107 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
-  --accent:#e6a817; --accent2:#c47f0a; --text:#e6edf3; --muted:#7d8590;
-  --hit:#3fb950; --out:#f85149; --double:#58a6ff; --triple:#bc8cff;
-  --hr:#ff7b72; --grounder:#79c0ff; --fly:#ffa657; --liner:#7ee787;
-  --strike:#f85149; --ball:#3fb950;
-  --nav-h:60px; --header-h:52px;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
+  --accent:#e6a817;--text:#e6edf3;--muted:#7d8590;
+  --c-hit:#3fb950;--c-out:#f85149;--c-double:#58a6ff;--c-triple:#bc8cff;
+  --c-hr:#ff7b72;--c-so:#ff6b9d;--c-bb:#4ecdc4;--c-hbp:#ffe66d;
+  --c-bunt:#a8d8a8;--c-grounder:#79c0ff;--c-fly:#ffa657;--c-liner:#7ee787;
+  --c-strike:#f85149;--c-ball:#3fb950;
+  --nav-h:60px;--header-h:52px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;display:flex;flex-direction:column;}
-
-/* ヘッダー */
-.app-header{
-  height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;padding:0 16px;
-  flex-shrink:0;
-}
+.app-header{height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0;}
 .app-header h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);}
-.header-player{font-size:13px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.header-player{font-size:13px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .header-player span{color:var(--text);font-weight:500;}
-
-/* スクロールエリア */
-.scroll-area{
-  flex:1;overflow-y:auto;overflow-x:hidden;
-  padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 8px);
-  -webkit-overflow-scrolling:touch;
-}
-
-/* ボトムナビ */
-.bottom-nav{
-  height:calc(var(--nav-h) + var(--safe-bottom));
-  padding-bottom:var(--safe-bottom);
-  background:var(--surface);border-top:1px solid var(--border);
-  display:flex;align-items:flex-start;flex-shrink:0;
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding-top:10px;gap:3px;cursor:pointer;transition:all 0.15s;
-  border:none;background:none;color:var(--muted);font-family:'Noto Sans JP',sans-serif;
-}
+.scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 8px);-webkit-overflow-scrolling:touch;}
+.bottom-nav{height:calc(var(--nav-h) + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:flex-start;flex-shrink:0;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:10px;gap:3px;cursor:pointer;border:none;background:none;color:var(--muted);font-family:'Noto Sans JP',sans-serif;}
 .nav-item.active{color:var(--accent);}
 .nav-icon{font-size:20px;line-height:1;}
 .nav-label{font-size:10px;font-weight:500;}
-
-/* タブコンテンツ */
 .tab-content{display:none;padding:12px;}
 .tab-content.active{display:block;}
-
-/* セクション共通 */
 .section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
 .section-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-
-/* 選手タブ */
-.player-card{
-  display:flex;align-items:center;
-  padding:14px;background:var(--surface2);border-radius:12px;
-  margin-bottom:8px;border:1px solid transparent;transition:all 0.15s;
-}
+.player-card{display:flex;align-items:center;padding:14px;background:var(--surface2);border-radius:12px;margin-bottom:8px;border:1px solid transparent;}
 .player-card.active{background:rgba(230,168,23,0.12);border-color:var(--accent);}
-.player-card .pc-name{font-size:15px;font-weight:500;}
+.pc-name{font-size:15px;font-weight:500;}
 .player-card.active .pc-name{color:var(--accent);}
-.player-card .pc-stats{text-align:right;}
-.player-card .pc-avg{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);}
-.player-card .pc-sub{font-size:11px;color:var(--muted);}
-.btn-player-del{
-  background:none;border:none;font-size:18px;cursor:pointer;
-  padding:6px;border-radius:8px;flex-shrink:0;opacity:0.5;transition:opacity 0.15s;
-}
-.btn-player-del:active{opacity:1;}
-.add-input{
-  flex:1;background:var(--surface2);border:1px solid var(--border);
-  border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;
-  font-family:'Noto Sans JP',sans-serif;
-}
+.pc-avg{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);}
+.pc-sub{font-size:11px;color:var(--muted);}
+.btn-player-del{background:none;border:none;font-size:18px;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0;opacity:0.5;}
+.add-row{display:flex;gap:8px;}
+.add-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;font-family:'Noto Sans JP',sans-serif;}
 .add-input:focus{outline:none;border-color:var(--accent);}
 .btn-add{background:var(--accent);color:#000;border:none;border-radius:10px;padding:12px 16px;font-size:18px;font-weight:700;cursor:pointer;}
-
-/* 統計タブ */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.stat-card{background:var(--surface2);border-radius:12px;padding:14px;}
-.stat-card .sc-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.stat-card .sc-val{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;}
-.sc-val.avg{color:var(--accent);}
-.sc-val.hit{color:var(--hit);}
-.sc-val.hr{color:var(--hr);}
-.sc-val.slg{color:var(--triple);}
-.sc-val.fp{color:var(--fly);}
-
-/* カウント別グリッド */
+.form-row{margin-bottom:12px;}
+.form-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:block;}
+.form-input{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;width:100%;font-family:'Noto Sans JP',sans-serif;}
+.form-input:focus{outline:none;border-color:var(--accent);}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{padding:10px 14px;border-radius:22px;font-size:13px;font-weight:500;border:1px solid var(--border);cursor:pointer;background:var(--surface2);color:var(--muted);user-select:none;transition:all 0.15s;}
+.chip.selected{color:#000!important;border-color:transparent;}
+.chip.r-hit.selected{background:var(--c-hit);}
+.chip.r-double.selected{background:var(--c-double);color:#fff!important;}
+.chip.r-triple.selected{background:var(--c-triple);color:#fff!important;}
+.chip.r-hr.selected{background:var(--c-hr);}
+.chip.r-out.selected{background:var(--c-out);}
+.chip.r-so.selected{background:var(--c-so);}
+.chip.r-bb.selected{background:var(--c-bb);}
+.chip.r-hbp.selected{background:var(--c-hbp);}
+.chip.r-grounder.selected{background:var(--c-grounder);}
+.chip.r-fly.selected{background:var(--c-fly);}
+.chip.r-liner.selected{background:var(--c-liner);}
+.chip.r-bunt.selected{background:var(--c-bunt);}
+.count-builder{background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px;}
+.count-display{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:14px;}
+.count-box{text-align:center;}
+.clabel{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.count-dots{display:flex;gap:6px;justify-content:center;margin-bottom:6px;}
+.cdot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:transparent;}
+.cdot.s-on{background:var(--c-strike);border-color:var(--c-strike);}
+.cdot.b-on{background:var(--c-ball);border-color:var(--c-ball);}
+.cnum{font-family:'Bebas Neue',sans-serif;font-size:34px;}
+.cnum.s{color:var(--c-strike);}
+.cnum.b{color:var(--c-ball);}
+.csep{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--border);margin-top:14px;}
+.pitch-btns{display:flex;gap:8px;margin-bottom:10px;}
+.pbtn{flex:1;padding:14px 8px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;}
+.pbtn.sbtn{background:rgba(248,81,73,0.18);color:var(--c-strike);border:1px solid rgba(248,81,73,0.35);}
+.pbtn.bbtn{background:rgba(63,185,80,0.18);color:var(--c-ball);border:1px solid rgba(63,185,80,0.35);}
+.pbtn.rbtn{background:var(--surface);color:var(--muted);border:1px solid var(--border);flex:0.6;}
+.pitch-seq{display:flex;flex-wrap:wrap;gap:5px;min-height:26px;}
+.picon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.picon.S{background:rgba(248,81,73,0.25);color:var(--c-strike);}
+.picon.B{background:rgba(63,185,80,0.25);color:var(--c-ball);}
+.swing-label{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;min-height:18px;}
+.swing-label span{color:var(--accent);font-weight:700;}
+.field-wrap{width:100%;max-width:300px;aspect-ratio:1;margin:0 auto;}
+.field-wrap canvas{width:100%;height:100%;border-radius:10px;touch-action:none;}
+.field-note{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;}
+.btn-record{width:100%;padding:16px;background:var(--accent);color:#000;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:8px;}
+.btn-record:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;}
+.stat-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.stat-card{background:var(--surface2);border-radius:12px;padding:12px 14px;}
+.sc-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.sc-val{font-family:'Bebas Neue',sans-serif;font-size:28px;}
+.rc-bar-wrap{margin-bottom:10px;}
+.rc-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.rc-name{font-size:13px;color:var(--text);}
+.rc-pct{font-family:'Bebas Neue',sans-serif;font-size:16px;}
+.rc-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.rc-fill{height:100%;border-radius:4px;}
+.rc-count{font-size:10px;color:var(--muted);margin-top:2px;}
+.zone-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;}
+.zone-card{background:var(--surface2);border-radius:8px;padding:8px;text-align:center;}
+.zname{font-size:10px;color:var(--muted);margin-bottom:3px;}
+.zval{font-family:'Bebas Neue',sans-serif;font-size:20px;}
+.zn{font-size:10px;color:var(--muted);}
 .count-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .cbar{background:var(--surface2);border-radius:10px;padding:10px 12px;}
 .cbar.first-pitch{border:1px solid rgba(230,168,23,0.4);}
@@ -108,132 +119,45 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .cb-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
 .cb-fill{height:100%;border-radius:3px;}
 .cb-sub{font-size:10px;color:var(--muted);margin-top:4px;}
-
-/* 記録タブ */
-.form-row{margin-bottom:12px;}
-.form-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:block;}
-.form-input{
-  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;color:var(--text);font-size:15px;width:100%;
-  font-family:'Noto Sans JP',sans-serif;
-}
-.form-input:focus{outline:none;border-color:var(--accent);}
-.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-
-/* 大きなチップ（スマホ向け） */
-.chip-group{display:flex;flex-wrap:wrap;gap:8px;}
-.chip{
-  padding:10px 16px;border-radius:22px;font-size:14px;font-weight:500;
-  border:1px solid var(--border);cursor:pointer;transition:all 0.15s;
-  background:var(--surface2);color:var(--muted);user-select:none;
-}
-.chip.selected{color:#000;border-color:transparent;}
-.chip.result-hit.selected{background:var(--hit);}
-.chip.result-double.selected{background:var(--double);}
-.chip.result-triple.selected{background:var(--triple);}
-.chip.result-hr.selected{background:var(--hr);}
-.chip.result-out.selected{background:var(--out);}
-.chip.type-grounder.selected{background:var(--grounder);}
-.chip.type-fly.selected{background:var(--fly);}
-.chip.type-liner.selected{background:var(--liner);}
-
-/* カウントビルダー */
-.count-builder{background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px;}
-.count-display{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:14px;}
-.count-box{text-align:center;}
-.clabel{font-size:11px;color:var(--muted);margin-bottom:8px;}
-.count-dots{display:flex;gap:6px;justify-content:center;margin-bottom:6px;}
-.cdot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:transparent;transition:all 0.2s;}
-.cdot.s-on{background:var(--strike);border-color:var(--strike);}
-.cdot.b-on{background:var(--ball);border-color:var(--ball);}
-.cnum{font-family:'Bebas Neue',sans-serif;font-size:34px;}
-.cnum.s{color:var(--strike);}
-.cnum.b{color:var(--ball);}
-.csep{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--border);margin-top:14px;}
-.pitch-btns{display:flex;gap:8px;margin-bottom:10px;}
-.pbtn{
-  flex:1;padding:14px 8px;border-radius:10px;border:none;font-size:14px;font-weight:700;
-  cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all 0.15s;user-select:none;
-}
-.pbtn:active{transform:scale(0.96);}
-.pbtn.sbtn{background:rgba(248,81,73,0.18);color:var(--strike);border:1px solid rgba(248,81,73,0.35);}
-.pbtn.bbtn{background:rgba(63,185,80,0.18);color:var(--ball);border:1px solid rgba(63,185,80,0.35);}
-.pbtn.rbtn{background:var(--surface);color:var(--muted);border:1px solid var(--border);flex:0.6;}
-.pitch-seq{display:flex;flex-wrap:wrap;gap:5px;min-height:26px;}
-.picon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
-.picon.S{background:rgba(248,81,73,0.25);color:var(--strike);}
-.picon.B{background:rgba(63,185,80,0.25);color:var(--ball);}
-.swing-label{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;min-height:18px;}
-.swing-label span{color:var(--accent);font-weight:700;}
-
-/* フィールド */
-.field-wrap{width:100%;max-width:280px;aspect-ratio:1;margin:0 auto;}
-#fieldCanvas{width:100%;height:100%;border-radius:10px;cursor:crosshair;}
-.field-note{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;}
-
-/* 記録ボタン */
-.btn-record{
-  width:100%;padding:16px;background:var(--accent);color:#000;
-  border:none;border-radius:12px;font-size:16px;font-weight:700;
-  cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:8px;
-  transition:all 0.15s;user-select:none;
-}
-.btn-record:active{transform:scale(0.98);}
-.btn-record:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;}
-
-/* 履歴タブ */
 .hi{background:var(--surface2);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
 .hi-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px;}
-.hi-num{font-size:11px;color:var(--muted);margin-right:2px;}
+.hi-num{font-size:11px;color:var(--muted);}
 .hi-count{font-size:12px;color:var(--accent);}
 .hi-pitches{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;align-items:center;}
 .hipitch{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
-.hipitch.S{background:rgba(248,81,73,0.25);color:var(--strike);}
-.hipitch.B{background:rgba(63,185,80,0.25);color:var(--ball);}
+.hipitch.S{background:rgba(248,81,73,0.25);color:var(--c-strike);}
+.hipitch.B{background:rgba(63,185,80,0.25);color:var(--c-ball);}
 .hi-meta{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;}
 .btn-del{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;margin-left:auto;padding:2px 6px;}
-.btn-del:active{color:var(--out);}
 .badge{display:inline-block;padding:4px 10px;border-radius:14px;font-size:12px;font-weight:700;}
-.badge-hit{background:rgba(63,185,80,0.2);color:var(--hit);}
-.badge-double{background:rgba(88,166,255,0.2);color:var(--double);}
-.badge-triple{background:rgba(188,140,255,0.2);color:var(--triple);}
-.badge-hr{background:rgba(255,123,114,0.2);color:var(--hr);}
-.badge-out{background:rgba(248,81,73,0.2);color:var(--out);}
-.badge-grounder{background:rgba(121,192,255,0.2);color:var(--grounder);}
-.badge-fly{background:rgba(255,166,87,0.2);color:var(--fly);}
-.badge-liner{background:rgba(126,231,135,0.2);color:var(--liner);}
+.badge-hit{background:rgba(63,185,80,0.2);color:var(--c-hit);}
+.badge-double{background:rgba(88,166,255,0.2);color:var(--c-double);}
+.badge-triple{background:rgba(188,140,255,0.2);color:var(--c-triple);}
+.badge-hr{background:rgba(255,123,114,0.2);color:var(--c-hr);}
+.badge-out{background:rgba(248,81,73,0.2);color:var(--c-out);}
+.badge-so{background:rgba(255,107,157,0.2);color:var(--c-so);}
+.badge-bb{background:rgba(78,205,196,0.2);color:var(--c-bb);}
+.badge-hbp{background:rgba(255,230,109,0.2);color:var(--c-hbp);}
+.badge-grounder{background:rgba(121,192,255,0.2);color:var(--c-grounder);}
+.badge-fly{background:rgba(255,166,87,0.2);color:var(--c-fly);}
+.badge-liner{background:rgba(126,231,135,0.2);color:var(--c-liner);}
+.badge-bunt{background:rgba(168,216,168,0.2);color:var(--c-bunt);}
+.badge-noab{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;background:rgba(125,133,144,0.2);color:var(--muted);}
 .empty{text-align:center;color:var(--muted);font-size:14px;padding:32px 0;}
-
-/* モーダル（選手追加） */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;align-items:flex-end;justify-content:center;}
-.modal-overlay.open{display:flex;}
-.modal-sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + var(--safe-bottom));width:100%;max-width:480px;}
-.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px;}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);margin-bottom:14px;letter-spacing:2px;}
-
-/* トースト通知 */
-.toast{
-  position:fixed;top:calc(var(--header-h) + 10px);left:50%;transform:translateX(-50%) translateY(-20px);
-  background:var(--hit);color:#000;padding:10px 20px;border-radius:20px;
-  font-size:13px;font-weight:700;opacity:0;transition:all 0.3s;z-index:200;white-space:nowrap;
-}
+.toast{position:fixed;top:calc(var(--header-h)+10px);left:50%;transform:translateX(-50%) translateY(-20px);background:var(--c-hit);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;transition:all 0.3s;z-index:200;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
-
 <div class="app-header">
   <h1>⚾ BATTING</h1>
   <div class="header-player" id="headerPlayer"><span style="color:var(--muted)">選手を選択</span></div>
 </div>
-
 <div class="scroll-area" id="scrollArea">
-
-  <!-- 選手タブ -->
   <div class="tab-content active" id="tab-players">
     <div class="section">
       <div class="section-title">選手を追加</div>
-      <div class="add-form">
+      <div class="add-row">
         <input type="text" class="add-input" id="newPlayerName" placeholder="選手名を入力" maxlength="12">
         <button type="button" class="btn-add" id="btnAddPlayer">+</button>
       </div>
@@ -243,214 +167,326 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
       <div id="playerList"><div class="empty">まだ選手が登録されていません</div></div>
     </div>
   </div>
-
-  <!-- 記録タブ -->
   <div class="tab-content" id="tab-record">
     <div id="recordContent"><div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div></div>
   </div>
-
-  <!-- 統計タブ -->
   <div class="tab-content" id="tab-stats">
     <div id="statsContent"><div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div></div>
   </div>
-
-  <!-- 履歴タブ -->
   <div class="tab-content" id="tab-history">
     <div id="histContent"><div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div></div>
   </div>
-
 </div>
-
-<!-- ボトムナビ -->
 <nav class="bottom-nav">
-  <button type="button" class="nav-item active" id="nav-players">
-    <div class="nav-icon">👤</div>
-    <div class="nav-label">選手</div>
-  </button>
-  <button type="button" class="nav-item" id="nav-record">
-    <div class="nav-icon">✏️</div>
-    <div class="nav-label">記録</div>
-  </button>
-  <button type="button" class="nav-item" id="nav-stats">
-    <div class="nav-icon">📊</div>
-    <div class="nav-label">統計</div>
-  </button>
-  <button type="button" class="nav-item" id="nav-history">
-    <div class="nav-icon">📋</div>
-    <div class="nav-label">履歴</div>
-  </button>
+  <button type="button" class="nav-item active" id="nav-players"><div class="nav-icon">👤</div><div class="nav-label">選手</div></button>
+  <button type="button" class="nav-item" id="nav-record"><div class="nav-icon">✏️</div><div class="nav-label">記録</div></button>
+  <button type="button" class="nav-item" id="nav-stats"><div class="nav-icon">📊</div><div class="nav-label">統計</div></button>
+  <button type="button" class="nav-item" id="nav-history"><div class="nav-icon">📋</div><div class="nav-label">履歴</div></button>
 </nav>
-
 <div class="toast" id="toast"></div>
 
 <script>
-let data = JSON.parse(localStorage.getItem('bstats_mobile') || '{"players":[]}');
-let pid = null, selResult = null, selType = null, cx = null, cy = null, pseq = [];
-let currentTab = 'players';
+let data = JSON.parse(localStorage.getItem('bstats_v2')||'{"players":[]}');
+let pid=null, selResult=null, selType=null, selZone=null, pseq=[];
 
-function save() { localStorage.setItem('bstats_mobile', JSON.stringify(data)); }
+const NO_AB=['bb','hbp'];
+const NO_DIR=['bb','hbp'];
+const NO_TYPE=['bb','hbp'];
 
-function showToast(msg, color) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.background = color || 'var(--hit)';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
+const RESULT_LABEL={hit:'単打',double:'二塁打',triple:'三塁打',hr:'本塁打',out:'アウト',so:'三振',bb:'フォアボール',hbp:'デッドボール'};
+const TYPE_LABEL={grounder:'ゴロ',fly:'フライ',liner:'ライナー',bunt:'バント'};
+const ZONE_NAMES={lf:'左翼',lcf:'左中間',cf:'中堅',rcf:'右中間',rf:'右翼',inf:'内野'};
+const ZONE_IDS=['lf','lcf','cf','rcf','rf','inf'];
+const ZONE_COLORS_ALPHA={lf:'rgba(63,185,80,',lcf:'rgba(88,166,255,',cf:'rgba(188,140,255,',rcf:'rgba(255,166,87,',rf:'rgba(255,123,114,',inf:'rgba(230,168,23,'};
+const ZONE_STROKE_COL={lf:'#3fb950',lcf:'#58a6ff',cf:'#bc8cff',rcf:'#ffa657',rf:'#ff7b72',inf:'#e6a817'};
+
+function save(){localStorage.setItem('bstats_v2',JSON.stringify(data));}
+function showToast(msg,color){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=color||'var(--c-hit)';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
 }
-
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  document.getElementById('nav-' + tab).classList.add('active');
-  document.getElementById('scrollArea').scrollTop = 0;
-  if (tab === 'stats') renderStats();
-  if (tab === 'history') renderHistory();
-  if (tab === 'record') renderRecord();
+function switchTab(tab){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('nav-'+tab).classList.add('active');
+  document.getElementById('scrollArea').scrollTop=0;
+  if(tab==='stats')renderStats();
+  if(tab==='history')renderHistory();
+  if(tab==='record')renderRecord();
 }
-
-function addPlayer() {
-  const name = document.getElementById('newPlayerName').value.trim();
-  if (!name) return;
-  const id = Date.now().toString();
-  data.players.push({id, name, atbats:[]});
-  save();
-  document.getElementById('newPlayerName').value = '';
-  renderPlayerList();
-  selectPlayer(id);
-  showToast(name + ' を追加しました');
-}
-document.getElementById('newPlayerName').addEventListener('keydown', e => { if(e.key==='Enter') addPlayer(); });
-document.getElementById('btnAddPlayer').addEventListener('click', addPlayer);
-['players','record','stats','history'].forEach(tab => {
-  document.getElementById('nav-'+tab).addEventListener('click', () => switchTab(tab));
+['players','record','stats','history'].forEach(t=>{
+  document.getElementById('nav-'+t).addEventListener('click',()=>switchTab(t));
 });
 
-function calcStats(p) {
-  const abs = p.atbats.length;
-  const hits = p.atbats.filter(a=>a.result!=='out').length;
-  const hr = p.atbats.filter(a=>a.result==='hr').length;
-  const d2 = p.atbats.filter(a=>a.result==='double').length;
-  const d3 = p.atbats.filter(a=>a.result==='triple').length;
-  const avg = abs>0 ? hits/abs : 0;
-  const slg = abs>0 ? (hits+d2+d3*2+hr*3)/abs : 0;
-  const fpAbs = p.atbats.filter(a=>a.pitches&&a.pitches.length===1).length;
-  const fpHits = p.atbats.filter(a=>a.pitches&&a.pitches.length===1&&a.result!=='out').length;
-  const fp = fpAbs>0 ? fpHits/fpAbs : 0;
-  return {abs, hits, hr, avg:avg.toFixed(3), slg:slg.toFixed(3), fp:fp.toFixed(3), fpAbs};
+function addPlayer(){
+  const name=document.getElementById('newPlayerName').value.trim();
+  if(!name)return;
+  const id=Date.now().toString();
+  data.players.push({id,name,atbats:[]});
+  save();document.getElementById('newPlayerName').value='';
+  renderPlayerList();selectPlayer(id);showToast(name+' を追加しました');
+}
+document.getElementById('newPlayerName').addEventListener('keydown',e=>{if(e.key==='Enter')addPlayer();});
+document.getElementById('btnAddPlayer').addEventListener('click',addPlayer);
+
+function calcStats(p){
+  const pa=p.atbats.length;
+  const ab=p.atbats.filter(a=>!NO_AB.includes(a.result)).length;
+  const hits=p.atbats.filter(a=>['hit','double','triple','hr'].includes(a.result)).length;
+  const hr=p.atbats.filter(a=>a.result==='hr').length;
+  const d2=p.atbats.filter(a=>a.result==='double').length;
+  const d3=p.atbats.filter(a=>a.result==='triple').length;
+  const so=p.atbats.filter(a=>a.result==='so').length;
+  const bb=p.atbats.filter(a=>a.result==='bb').length;
+  const hbp=p.atbats.filter(a=>a.result==='hbp').length;
+  const avg=ab>0?hits/ab:0;
+  const slg=ab>0?(hits+d2+d3*2+hr*3)/ab:0;
+  const obpD=ab+bb+hbp;
+  const obp=obpD>0?(hits+bb+hbp)/obpD:0;
+  return{pa,ab,hits,hr,d2,d3,so,bb,hbp,avg:avg.toFixed(3),slg:slg.toFixed(3),obp:obp.toFixed(3)};
 }
 
-function renderPlayerList() {
-  const el = document.getElementById('playerList');
-  if (!data.players.length) { el.innerHTML='<div class="empty">まだ選手が登録されていません</div>'; return; }
-  el.innerHTML = data.players.map(p => {
-    const s = calcStats(p);
-    return `<div class="player-card${p.id===pid?' active':''}">
-      <div style="flex:1;display:flex;align-items:center;gap:12px;" onclick="selectPlayer('${p.id}')">
+function renderPlayerList(){
+  const el=document.getElementById('playerList');
+  if(!data.players.length){el.innerHTML='<div class="empty">まだ選手が登録されていません</div>';return;}
+  el.innerHTML=data.players.map(p=>{
+    const s=calcStats(p);
+    return`<div class="player-card${p.id===pid?' active':''}">
+      <div style="flex:1;cursor:pointer" onclick="selectPlayer('${p.id}')">
         <div class="pc-name">${p.name}</div>
+        <div class="pc-sub" style="margin-top:2px">${s.pa}打席 / ${s.ab}打数</div>
       </div>
-      <div class="pc-stats" onclick="selectPlayer('${p.id}')" style="flex:0 0 auto;margin-right:10px">
+      <div style="text-align:right;margin-right:10px;cursor:pointer" onclick="selectPlayer('${p.id}')">
         <div class="pc-avg">${s.avg}</div>
-        <div class="pc-sub">${s.abs}打数 ${s.hits}安打</div>
+        <div class="pc-sub">${s.hits}安打</div>
       </div>
       <button type="button" class="btn-player-del" onclick="deletePlayer('${p.id}')">🗑</button>
     </div>`;
   }).join('');
 }
 
-function deletePlayer(id) {
-  const p = data.players.find(p=>p.id===id);
-  if (!p) return;
-  if (!confirm(`「${p.name}」を削除しますか？\n打席データもすべて削除されます。`)) return;
-  data.players = data.players.filter(p=>p.id!==id);
-  if (pid === id) {
-    pid = null;
-    document.getElementById('headerPlayer').innerHTML = '<span style="color:var(--muted)">選手を選択</span>';
-    ['record','stats','history'].forEach(tab => {
-      const el = document.getElementById(tab==='record'?'recordContent':tab==='stats'?'statsContent':'histContent');
-      if (el) el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>';
+function deletePlayer(id){
+  const p=data.players.find(p=>p.id===id);
+  if(!p||!confirm(`「${p.name}」を削除しますか？`))return;
+  data.players=data.players.filter(p=>p.id!==id);
+  if(pid===id){
+    pid=null;
+    document.getElementById('headerPlayer').innerHTML='<span style="color:var(--muted)">選手を選択</span>';
+    ['recordContent','statsContent','histContent'].forEach(i=>{
+      const e=document.getElementById(i);
+      if(e)e.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>';
     });
   }
-  save();
-  renderPlayerList();
-  showToast(p.name + ' を削除しました', 'var(--out)');
+  save();renderPlayerList();showToast(p.name+' を削除しました','var(--c-out)');
 }
 
-function selectPlayer(id) {
-  pid = id; selResult=null; selType=null; cx=null; cy=null; pseq=[];
-  const p = data.players.find(p=>p.id===pid);
-  document.getElementById('headerPlayer').innerHTML = p ? `<span>${p.name}</span>` : '<span style="color:var(--muted)">選手を選択</span>';
-  renderPlayerList();
-  showToast(p.name + ' を選択');
+function selectPlayer(id){
+  pid=id;selResult=null;selType=null;selZone=null;pseq=[];
+  const p=data.players.find(p=>p.id===id);
+  document.getElementById('headerPlayer').innerHTML=p?`<span>${p.name}</span>`:'<span style="color:var(--muted)">選手を選択</span>';
+  renderPlayerList();showToast(p.name+' を選択');
 }
 
-function getS() { return Math.min(pseq.filter(p=>p==='S').length,2); }
-function getB() { return Math.min(pseq.filter(p=>p==='B').length,3); }
-
-function addPitch(t) {
-  if(t==='S'&&getS()>=2) return;
-  if(t==='B'&&getB()>=3) return;
-  pseq.push(t); updateCountUI();
+function getS(){return Math.min(pseq.filter(p=>p==='S').length,2);}
+function getB(){return Math.min(pseq.filter(p=>p==='B').length,3);}
+function addPitch(t){
+  if(t==='S'&&getS()>=2)return;
+  if(t==='B'&&getB()>=3)return;
+  pseq.push(t);updateCountUI();
 }
-function resetPitch() { pseq=[]; updateCountUI(); }
-
-function updateCountUI() {
-  const s=getS(), b=getB();
+function resetPitch(){pseq=[];updateCountUI();}
+function updateCountUI(){
+  const s=getS(),b=getB();
   for(let i=0;i<2;i++){const d=document.getElementById('sd'+i);if(d)d.className='cdot'+(i<s?' s-on':'');}
   for(let i=0;i<3;i++){const d=document.getElementById('bd'+i);if(d)d.className='cdot'+(i<b?' b-on':'');}
   const sn=document.getElementById('snum'),bn=document.getElementById('bnum');
-  if(sn)sn.textContent=s; if(bn)bn.textContent=b;
+  if(sn)sn.textContent=s;if(bn)bn.textContent=b;
   const sq=document.getElementById('pseq');
-  if(sq) sq.innerHTML=pseq.map(p=>`<div class="picon ${p}">${p}</div>`).join('');
+  if(sq)sq.innerHTML=pseq.map(p=>`<div class="picon ${p}">${p}</div>`).join('');
   const lbl=document.getElementById('swlbl');
-  if(lbl){
-    const total=pseq.length;
-    if(total===0){lbl.innerHTML='球数を入力してください';}
-    else{lbl.innerHTML=`カウント <span>${b}ボール${s}ストライク</span> で打撃（${total}球目）`;}
+  if(lbl)lbl.innerHTML=pseq.length===0?'球数を入力してください':`カウント <span>${b}ボール${s}ストライク</span>（${pseq.length}球目）`;
+}
+
+// ===== 6ゾーンフィールド =====
+function buildZonePaths(){
+  const cx=150,cy=272,toR=d=>d*Math.PI/180;
+  function arc(r,a1,a2,n){
+    const pts=[];
+    for(let i=0;i<=n;i++){const a=a1+(a2-a1)*i/n;pts.push([cx+r*Math.cos(toR(a)),cy+r*Math.sin(toR(a))]);}
+    return pts;
+  }
+  const outR=268,infR=92;
+  const outerA=[212,248,270,292,328];
+  const ids=['lf','lcf','cf','rcf','rf'];
+  const paths={};
+  paths.inf=[[cx,cy],...arc(infR,212,328,16)];
+  for(let i=0;i<5;i++){
+    const a1=outerA[i],a2=outerA[i+1];
+    const inner=arc(infR,a1,a2,5);
+    const outer=arc(outR,a1,a2,10);
+    paths[ids[i]]=[...inner,...outer.reverse()];
+  }
+  return paths;
+}
+const ZONE_PATHS=buildZonePaths();
+
+function pointInPoly(px,py,poly){
+  let inside=false;
+  for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+    const xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];
+    if(((yi>py)!==(yj>py))&&(px<(xj-xi)*(py-yi)/(yj-yi)+xi))inside=!inside;
+  }
+  return inside;
+}
+function getZone(x,y){
+  if(pointInPoly(x,y,ZONE_PATHS.inf))return'inf';
+  for(const z of['lf','lcf','cf','rcf','rf'])if(pointInPoly(x,y,ZONE_PATHS[z]))return z;
+  return null;
+}
+
+function drawField(canvasId,player,interactive){
+  const canvas=document.getElementById(canvasId);
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d'),W=300,H=300;
+
+  const zc={lf:0,lcf:0,cf:0,rcf:0,rf:0,inf:0};
+  if(player)player.atbats.forEach(a=>{if(a.zone&&zc[a.zone]!==undefined)zc[a.zone]++;});
+  const zt=Object.values(zc).reduce((a,b)=>a+b,0);
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0a1a0a';ctx.fillRect(0,0,W,H);
+
+    // ゾーン塗り
+    for(const zid of ZONE_IDS){
+      const pts=ZONE_PATHS[zid];
+      const pct=zt>0?zc[zid]/zt:0;
+      const alpha=0.12+pct*0.55;
+      ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+      ctx.closePath();
+      ctx.fillStyle=ZONE_COLORS_ALPHA[zid]+alpha+')';ctx.fill();
+      const isSel=interactive&&selZone===zid;
+      ctx.strokeStyle=isSel?ZONE_STROKE_COL[zid]:'rgba(255,255,255,0.15)';
+      ctx.lineWidth=isSel?2.5:1;ctx.stroke();
+    }
+
+    // ダイヤモンド
+    ctx.beginPath();ctx.moveTo(150,272);ctx.lineTo(52,187);ctx.lineTo(150,102);ctx.lineTo(248,187);ctx.closePath();
+    ctx.fillStyle='rgba(61,43,26,0.75)';ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=1;ctx.stroke();
+
+    // マウンド
+    ctx.beginPath();ctx.arc(150,182,8,0,Math.PI*2);
+    ctx.fillStyle='rgba(90,61,34,0.9)';ctx.fill();
+    ctx.beginPath();ctx.arc(150,182,3,0,Math.PI*2);
+    ctx.fillStyle='#ffffff88';ctx.fill();
+
+    // ベース
+    [{x:150,y:272},{x:248,y:187},{x:150,y:102},{x:52,y:187}].forEach((b,i)=>{
+      ctx.fillStyle=i===0?'#999':'#fff';ctx.fillRect(b.x-7,b.y-7,14,14);
+    });
+
+    // ファウルライン
+    ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(150,272);ctx.lineTo(12,18);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(150,272);ctx.lineTo(288,18);ctx.stroke();
+    ctx.setLineDash([]);
+
+    // ゾーンラベル・%
+    const lpos={lf:[36,168],lcf:[88,62],cf:[150,28],rcf:[212,62],rf:[264,168],inf:[150,168]};
+    ctx.textAlign='center';
+    for(const zid of ZONE_IDS){
+      const[lx,ly]=lpos[zid];
+      const pct=zt>0?Math.round(zc[zid]/zt*100):0;
+      ctx.font='bold 10px sans-serif';
+      ctx.fillStyle='rgba(255,255,255,0.65)';
+      ctx.fillText(ZONE_NAMES[zid],lx,ly);
+      ctx.font='bold 15px Bebas Neue,sans-serif';
+      ctx.fillStyle=zt>0?(pct>=25?ZONE_STROKE_COL[zid]:'rgba(255,255,255,0.85)'):'rgba(255,255,255,0.3)';
+      ctx.fillText(pct+'%',lx,ly+17);
+      if(zc[zid]>0){
+        ctx.font='10px sans-serif';ctx.fillStyle='rgba(255,255,255,0.45)';
+        ctx.fillText('('+zc[zid]+')',lx,ly+29);
+      }
+    }
+
+    // 選択中ゾーン強調枠
+    if(interactive&&selZone){
+      const pts=ZONE_PATHS[selZone];
+      ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+      ctx.closePath();ctx.strokeStyle=ZONE_STROKE_COL[selZone];ctx.lineWidth=3;ctx.stroke();
+    }
+  }
+  draw();
+
+  if(interactive){
+    function onTap(e){
+      e.preventDefault();
+      const touch=e.touches?e.touches[0]:e;
+      const r=canvas.getBoundingClientRect();
+      const x=(touch.clientX-r.left)*(300/r.width);
+      const y=(touch.clientY-r.top)*(300/r.height);
+      const z=getZone(x,y);
+      if(z){selZone=(selZone===z)?null:z;draw();updateZoneLabel();}
+    }
+    canvas.ontouchstart=onTap;canvas.onclick=onTap;
   }
 }
 
-function renderRecord() {
-  const el = document.getElementById('recordContent');
-  if (!pid) { el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>'; return; }
-  const player = data.players.find(p=>p.id===pid);
-  const today = new Date().toISOString().slice(0,10);
-  el.innerHTML = `
+function updateZoneLabel(){
+  const el=document.getElementById('zoneLabel');
+  if(el)el.textContent=selZone?`選択ゾーン: ${ZONE_NAMES[selZone]}`:'ゾーンをタップして選択（任意）';
+}
+
+// ===== 記録タブ =====
+function renderRecord(){
+  const el=document.getElementById('recordContent');
+  if(!pid){el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>';return;}
+  const player=data.players.find(p=>p.id===pid);
+  const today=new Date().toISOString().slice(0,10);
+  const noType=selResult&&NO_TYPE.includes(selResult);
+  const noDir=selResult&&NO_DIR.includes(selResult);
+
+  el.innerHTML=`
     <div class="section">
       <div class="section-title">試合情報</div>
       <div class="form-2col">
-        <div class="form-row" style="margin:0">
-          <label class="form-label">日付</label>
-          <input type="date" id="iDate" class="form-input" value="${today}">
-        </div>
-        <div class="form-row" style="margin:0">
-          <label class="form-label">対戦相手</label>
-          <input type="text" id="iOpp" class="form-input" placeholder="○○高校" maxlength="15">
-        </div>
+        <div class="form-row" style="margin:0"><label class="form-label">日付</label><input type="date" id="iDate" class="form-input" value="${today}"></div>
+        <div class="form-row" style="margin:0"><label class="form-label">対戦相手</label><input type="text" id="iOpp" class="form-input" placeholder="○○高校" maxlength="15"></div>
       </div>
     </div>
 
     <div class="section">
       <div class="section-title">打席結果</div>
       <div class="form-row">
-        <label class="form-label">結果</label>
+        <label class="form-label">安打・アウト</label>
         <div class="chip-group">
-          <span class="chip result-hit ${selResult==='hit'?'selected':''}" onclick="selR('hit')">単打</span>
-          <span class="chip result-double ${selResult==='double'?'selected':''}" onclick="selR('double')">二塁打</span>
-          <span class="chip result-triple ${selResult==='triple'?'selected':''}" onclick="selR('triple')">三塁打</span>
-          <span class="chip result-hr ${selResult==='hr'?'selected':''}" onclick="selR('hr')">本塁打</span>
-          <span class="chip result-out ${selResult==='out'?'selected':''}" onclick="selR('out')">アウト</span>
+          <span class="chip r-hit ${selResult==='hit'?'selected':''}" onclick="selR('hit')">単打</span>
+          <span class="chip r-double ${selResult==='double'?'selected':''}" onclick="selR('double')">二塁打</span>
+          <span class="chip r-triple ${selResult==='triple'?'selected':''}" onclick="selR('triple')">三塁打</span>
+          <span class="chip r-hr ${selResult==='hr'?'selected':''}" onclick="selR('hr')">本塁打</span>
+          <span class="chip r-out ${selResult==='out'?'selected':''}" onclick="selR('out')">アウト</span>
         </div>
       </div>
       <div class="form-row">
-        <label class="form-label">打球の種類</label>
+        <label class="form-label">三振・四死球<span style="color:var(--muted);font-size:10px;margin-left:6px">打数外</span></label>
         <div class="chip-group">
-          <span class="chip type-grounder ${selType==='grounder'?'selected':''}" onclick="selT('grounder')">ゴロ</span>
-          <span class="chip type-fly ${selType==='fly'?'selected':''}" onclick="selT('fly')">フライ</span>
-          <span class="chip type-liner ${selType==='liner'?'selected':''}" onclick="selT('liner')">ライナー</span>
+          <span class="chip r-so ${selResult==='so'?'selected':''}" onclick="selR('so')">⚡ 三振</span>
+          <span class="chip r-bb ${selResult==='bb'?'selected':''}" onclick="selR('bb')">🎯 フォアボール</span>
+          <span class="chip r-hbp ${selResult==='hbp'?'selected':''}" onclick="selR('hbp')">💥 デッドボール</span>
         </div>
       </div>
+      ${!noType?`<div class="form-row" style="margin-bottom:0">
+        <label class="form-label">打球の種類</label>
+        <div class="chip-group">
+          <span class="chip r-grounder ${selType==='grounder'?'selected':''}" onclick="selT('grounder')">ゴロ</span>
+          <span class="chip r-fly ${selType==='fly'?'selected':''}" onclick="selT('fly')">フライ</span>
+          <span class="chip r-liner ${selType==='liner'?'selected':''}" onclick="selT('liner')">ライナー</span>
+          <span class="chip r-bunt ${selType==='bunt'?'selected':''}" onclick="selT('bunt')">バント</span>
+        </div>
+      </div>`:''}
     </div>
 
     <div class="section">
@@ -479,162 +515,179 @@ function renderRecord() {
       </div>
     </div>
 
+    ${!noDir?`
     <div class="section">
-      <div class="section-title">打球方向（タップで指定）</div>
+      <div class="section-title">打球方向（6ゾーン）</div>
       <div class="field-wrap"><canvas id="fieldCanvas" width="300" height="300"></canvas></div>
-      <div class="field-note">フィールドをタップして打球方向を指定（任意）</div>
-    </div>
+      <div class="field-note" id="zoneLabel">ゾーンをタップして選択（任意）</div>
+    </div>`:''}
 
     <div style="padding:0 0 8px">
       <button class="btn-record" id="recBtn" onclick="recordAB()">この打席を記録する ⚾</button>
     </div>
   `;
   updateCountUI();
-  drawField(player);
-  document.getElementById('recBtn').disabled = !selResult;
+  if(!noDir){drawField('fieldCanvas',player,true);if(selZone)updateZoneLabel();}
+  document.getElementById('recBtn').disabled=!selResult;
 }
 
-function selR(r){selResult=r;renderRecord();}
+function selR(r){
+  selResult=r;
+  if(NO_TYPE.includes(r))selType=null;
+  if(NO_DIR.includes(r))selZone=null;
+  renderRecord();
+}
 function selT(t){selType=t;renderRecord();}
 
-function drawField(player) {
-  const canvas=document.getElementById('fieldCanvas');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d'),W=300,H=300;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#0d1f0d';ctx.fillRect(0,0,W,H);
-  ctx.beginPath();ctx.moveTo(150,260);ctx.arc(150,260,240,-Math.PI*0.85,-Math.PI*0.15);ctx.closePath();
-  ctx.fillStyle='#1a3a1a';ctx.fill();
-  ctx.beginPath();ctx.moveTo(150,260);ctx.lineTo(40,150);ctx.lineTo(150,50);ctx.lineTo(260,150);ctx.closePath();
-  ctx.fillStyle='#3d2b1a';ctx.fill();
-  ctx.beginPath();ctx.arc(150,155,62,0,Math.PI*2);ctx.fillStyle='#1a3a1a';ctx.fill();
-  ctx.strokeStyle='#ffffff44';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(150,260);ctx.lineTo(20,30);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(150,260);ctx.lineTo(280,30);ctx.stroke();
-  [{x:150,y:260},{x:260,y:150},{x:150,y:50},{x:40,y:150}].forEach(b=>{ctx.fillStyle='#fff';ctx.fillRect(b.x-6,b.y-6,12,12);});
-  ctx.beginPath();ctx.arc(150,165,7,0,Math.PI*2);ctx.fillStyle='#5a3d22';ctx.fill();
-  ctx.beginPath();ctx.arc(150,165,3,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
-  ctx.fillStyle='#ffffff66';ctx.font='12px Noto Sans JP';ctx.textAlign='center';
-  ctx.fillText('左',35,100);ctx.fillText('中',150,20);ctx.fillText('右',265,100);
-  player.atbats.forEach(a=>{
-    if(a.dx==null)return;
-    const col=a.result==='out'?'#f8514988':a.result==='hr'?'#ff7b72cc':a.result==='double'?'#58a6ffcc':a.result==='triple'?'#bc8cffcc':'#3fb950cc';
-    ctx.beginPath();ctx.arc(a.dx,a.dy,6,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
-  });
-  if(cx!==null){
-    ctx.beginPath();ctx.arc(cx,cy,10,0,Math.PI*2);ctx.fillStyle='#e6a817cc';ctx.fill();
-    ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
-    ctx.beginPath();ctx.moveTo(150,260);ctx.lineTo(cx,cy);
-    ctx.strokeStyle='#e6a81799';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
-  }
-  // タッチ対応
-  canvas.ontouchstart = canvas.onclick = (e) => {
-    e.preventDefault();
-    const touch = e.touches ? e.touches[0] : e;
-    const r=canvas.getBoundingClientRect();
-    cx=(touch.clientX-r.left)*(300/r.width);
-    cy=(touch.clientY-r.top)*(300/r.height);
-    drawField(player);
-  };
-}
-
-function recordAB() {
+function recordAB(){
   if(!selResult)return;
   const player=data.players.find(p=>p.id===pid);
   const dateVal=document.getElementById('iDate')?.value||new Date().toISOString().slice(0,10);
   const opp=document.getElementById('iOpp')?.value.trim()||'';
   player.atbats.push({
-    result:selResult, type:selType,
-    pitches:[...pseq], strikes:getS(), balls:getB(),
-    dx:cx?Math.round(cx):null, dy:cy?Math.round(cy):null,
-    date:dateVal, opponent:opp
+    result:selResult,type:selType,
+    pitches:[...pseq],strikes:getS(),balls:getB(),
+    zone:(!NO_DIR.includes(selResult)&&selZone)?selZone:null,
+    date:dateVal,opponent:opp
   });
   save();
-  const rl={hit:'単打',double:'二塁打',triple:'三塁打',hr:'本塁打',out:'アウト'};
-  const col={hit:'var(--hit)',double:'var(--double)',triple:'var(--triple)',hr:'var(--hr)',out:'var(--out)'};
-  showToast(rl[selResult] + ' を記録しました', col[selResult]);
-  selResult=null; selType=null; cx=null; cy=null; pseq=[];
-  renderPlayerList();
-  renderRecord();
+  const col={hit:'var(--c-hit)',double:'var(--c-double)',triple:'var(--c-triple)',hr:'var(--c-hr)',out:'var(--c-out)',so:'var(--c-so)',bb:'var(--c-bb)',hbp:'var(--c-hbp)'};
+  showToast(RESULT_LABEL[selResult]+' を記録しました',col[selResult]||'var(--accent)');
+  selResult=null;selType=null;selZone=null;pseq=[];
+  renderPlayerList();renderRecord();
 }
 
-function deleteAB(idx) {
-  if(!confirm('この打席記録を削除しますか？')) return;
+function deleteAB(idx){
+  if(!confirm('この打席記録を削除しますか？'))return;
   const player=data.players.find(p=>p.id===pid);
-  player.atbats.splice(idx,1); save();
-  renderPlayerList(); renderHistory();
-  showToast('削除しました','var(--muted)');
+  player.atbats.splice(idx,1);save();
+  renderPlayerList();renderHistory();showToast('削除しました','var(--muted)');
 }
 
-function renderStats() {
-  const el = document.getElementById('statsContent');
-  if (!pid) { el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>'; return; }
-  const player = data.players.find(p=>p.id===pid);
-  const s = calcStats(player);
+// ===== 統計タブ =====
+function renderStats(){
+  const el=document.getElementById('statsContent');
+  if(!pid){el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>';return;}
+  const player=data.players.find(p=>p.id===pid);
+  const s=calcStats(player);
+  const pa=s.pa;
 
-  const counts={};
+  // 打席結果バーチャート
+  const rdef=[
+    {key:'hit',   label:'単打',         color:'var(--c-hit)'},
+    {key:'double',label:'二塁打',       color:'var(--c-double)'},
+    {key:'triple',label:'三塁打',       color:'var(--c-triple)'},
+    {key:'hr',    label:'本塁打',       color:'var(--c-hr)'},
+    {key:'bb',    label:'フォアボール', color:'var(--c-bb)'},
+    {key:'hbp',   label:'デッドボール', color:'var(--c-hbp)'},
+    {key:'so',    label:'三振',         color:'var(--c-so)'},
+    {key:'out',   label:'アウト',       color:'var(--c-out)'},
+  ];
+  const rcBars=rdef.map(r=>{
+    const n=player.atbats.filter(a=>a.result===r.key).length;
+    const pct=pa>0?n/pa*100:0;
+    return`<div class="rc-bar-wrap">
+      <div class="rc-label-row">
+        <span class="rc-name">${r.label}</span>
+        <span class="rc-pct" style="color:${r.color}">${Math.round(pct)}%</span>
+      </div>
+      <div class="rc-track"><div class="rc-fill" style="width:${pct}%;background:${r.color}"></div></div>
+      <div class="rc-count">${n}回 / ${pa}打席</div>
+    </div>`;
+  }).join('');
+
+  // 打球方向ゾーン集計
+  const zc={lf:0,lcf:0,cf:0,rcf:0,rf:0,inf:0};
+  player.atbats.forEach(a=>{if(a.zone&&zc[a.zone]!==undefined)zc[a.zone]++;});
+  const zt=Object.values(zc).reduce((a,b)=>a+b,0);
+  const zoneCards=ZONE_IDS.map(zid=>{
+    const pct=zt>0?Math.round(zc[zid]/zt*100):0;
+    return`<div class="zone-card">
+      <div class="zname">${ZONE_NAMES[zid]}</div>
+      <div class="zval" style="color:${ZONE_STROKE_COL[zid]}">${pct}%</div>
+      <div class="zn">${zc[zid]}打球</div>
+    </div>`;
+  }).join('');
+
+  // カウント別
+  const cm={};
   player.atbats.forEach(a=>{
-    if(!a.pitches||a.pitches.length===0)return;
+    if(!a.pitches||!a.pitches.length)return;
     const sv=Math.min(a.pitches.filter(p=>p==='S').length,2);
     const bv=Math.min(a.pitches.filter(p=>p==='B').length,3);
-    const key=`${bv}B${sv}S`;
-    if(!counts[key])counts[key]={total:0,hits:0};
-    counts[key].total++;
-    if(a.result!=='out')counts[key].hits++;
+    const k=`${bv}B${sv}S`;
+    if(!cm[k])cm[k]={total:0,hits:0};
+    cm[k].total++;
+    if(['hit','double','triple','hr'].includes(a.result))cm[k].hits++;
   });
   const order=['0B0S','1B0S','2B0S','3B0S','0B1S','1B1S','2B1S','3B1S','0B2S','1B2S','2B2S','3B2S'];
-  const labels={'0B0S':'初球','1B0S':'1B-0S','2B0S':'2B-0S','3B0S':'3B-0S','0B1S':'0B-1S','1B1S':'1B-1S','2B1S':'2B-1S','3B1S':'3B-1S','0B2S':'0B-2S','1B2S':'1B-2S','2B2S':'2B-2S（追込）','3B2S':'フルカウント'};
-
-  const countHtml = Object.keys(counts).length
-    ? `<div class="count-grid">${order.filter(k=>counts[k]).map(k=>{
-        const c=counts[k];
-        const avg=c.total>0?c.hits/c.total:0;
-        const pct=Math.round(avg*100);
-        const col=pct>=40?'var(--hit)':pct>=25?'var(--fly)':'var(--out)';
-        return `<div class="cbar${k==='0B0S'?' first-pitch':''}">
-          <div class="cb-top"><span>${labels[k]}</span><span class="cb-n">${c.total}打</span></div>
+  const lbl={'0B0S':'初球','1B0S':'1B-0S','2B0S':'2B-0S','3B0S':'3B-0S','0B1S':'0B-1S','1B1S':'1B-1S','2B1S':'2B-1S','3B1S':'3B-1S','0B2S':'0B-2S','1B2S':'1B-2S','2B2S':'追込','3B2S':'フルカウント'};
+  const countHtml=Object.keys(cm).length
+    ?`<div class="count-grid">${order.filter(k=>cm[k]).map(k=>{
+        const c=cm[k];const avg=c.total>0?c.hits/c.total:0;const pct=Math.round(avg*100);
+        const col=pct>=40?'var(--c-hit)':pct>=25?'var(--c-fly)':'var(--c-out)';
+        return`<div class="cbar${k==='0B0S'?' first-pitch':''}">
+          <div class="cb-top"><span>${lbl[k]}</span><span class="cb-n">${c.total}打</span></div>
           <div class="cb-track"><div class="cb-fill" style="width:${pct}%;background:${col}"></div></div>
           <div class="cb-sub">${c.hits}安 .${String(Math.round(avg*1000)).padStart(3,'0')}</div>
         </div>`;
       }).join('')}</div>`
-    : '<div class="empty">球数データがありません</div>';
+    :'<div class="empty">球数データがありません</div>';
 
-  el.innerHTML = `
+  el.innerHTML=`
     <div class="section">
       <div class="section-title">成績サマリー</div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="sc-label">打率</div><div class="sc-val avg">${s.avg}</div></div>
-        <div class="stat-card"><div class="sc-label">打数 / 安打</div><div class="sc-val hit" style="font-size:26px">${s.abs} / ${s.hits}</div></div>
-        <div class="stat-card"><div class="sc-label">本塁打</div><div class="sc-val hr">${s.hr}</div></div>
-        <div class="stat-card"><div class="sc-label">長打率</div><div class="sc-val slg">${s.slg}</div></div>
-        <div class="stat-card"><div class="sc-label">初球打率</div><div class="sc-val fp">${s.fp}</div></div>
-        <div class="stat-card"><div class="sc-label">初球打席数</div><div class="sc-val" style="color:var(--muted)">${s.fpAbs}</div></div>
+      <div class="stat-grid2">
+        <div class="stat-card"><div class="sc-label">打率</div><div class="sc-val" style="color:var(--accent)">${s.avg}</div></div>
+        <div class="stat-card"><div class="sc-label">出塁率</div><div class="sc-val" style="color:var(--c-double)">${s.obp}</div></div>
+        <div class="stat-card"><div class="sc-label">打席 / 打数</div><div class="sc-val" style="color:var(--c-hit);font-size:22px">${s.pa} / ${s.ab}</div></div>
+        <div class="stat-card"><div class="sc-label">安打 / 本塁打</div><div class="sc-val" style="color:var(--c-hr);font-size:22px">${s.hits} / ${s.hr}</div></div>
+        <div class="stat-card"><div class="sc-label">三振</div><div class="sc-val" style="color:var(--c-so)">${s.so}</div></div>
+        <div class="stat-card"><div class="sc-label">四球 / 死球</div><div class="sc-val" style="color:var(--c-bb);font-size:22px">${s.bb} / ${s.hbp}</div></div>
       </div>
     </div>
+
+    <div class="section">
+      <div class="section-title">打席結果の内訳（全打席比）</div>
+      ${pa>0?rcBars:'<div class="empty">打席データがありません</div>'}
+    </div>
+
+    <div class="section">
+      <div class="section-title">打球方向の累積割合</div>
+      ${zt>0?`
+        <div class="field-wrap"><canvas id="dirCanvas" width="300" height="300"></canvas></div>
+        <div class="zone-stats">${zoneCards}</div>
+      `:'<div class="empty">打球方向データがありません<br><span style="font-size:11px">記録タブでゾーンを選択してください</span></div>'}
+    </div>
+
     <div class="section">
       <div class="section-title">カウント別成績</div>
       ${countHtml}
-    </div>`;
+    </div>
+  `;
+
+  if(zt>0)drawField('dirCanvas',player,false);
 }
 
-function renderHistory() {
-  const el = document.getElementById('histContent');
-  if (!pid) { el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>'; return; }
-  const player = data.players.find(p=>p.id===pid);
-  if (!player.atbats.length) { el.innerHTML='<div class="section"><div class="empty">まだ打席記録がありません</div></div>'; return; }
-  const rl={hit:'単打',double:'二塁打',triple:'三塁打',hr:'本塁打',out:'アウト'};
-  const tl={grounder:'ゴロ',fly:'フライ',liner:'ライナー'};
-  el.innerHTML = '<div style="padding:0 0 4px">' + [...player.atbats].reverse().map((a,ri)=>{
+// ===== 履歴タブ =====
+function renderHistory(){
+  const el=document.getElementById('histContent');
+  if(!pid){el.innerHTML='<div class="empty" style="padding:60px 0">まず「選手」タブから選手を選んでください</div>';return;}
+  const player=data.players.find(p=>p.id===pid);
+  if(!player.atbats.length){el.innerHTML='<div class="section"><div class="empty">まだ打席記録がありません</div></div>';return;}
+  el.innerHTML='<div style="padding:0 0 4px">'+[...player.atbats].reverse().map((a,ri)=>{
     const i=player.atbats.length-1-ri;
     const ph=a.pitches&&a.pitches.length>0
       ?a.pitches.map(p=>`<div class="hipitch ${p}">${p}</div>`).join('')
       :'<span style="color:var(--muted);font-size:11px">球数未記録</span>';
     const cs=a.pitches&&a.pitches.length>0?`<span class="hi-count">${a.balls}B-${a.strikes}S（${a.pitches.length}球目）</span>`:'';
-    return `<div class="hi">
+    const noab=NO_AB.includes(a.result);
+    return`<div class="hi">
       <div class="hi-top">
         <span class="hi-num">#${i+1}</span>
-        <span class="badge badge-${a.result}">${rl[a.result]}</span>
-        ${a.type?`<span class="badge badge-${a.type}">${tl[a.type]}</span>`:''}
+        <span class="badge badge-${a.result}">${RESULT_LABEL[a.result]}</span>
+        ${noab?'<span class="badge-noab">打数外</span>':''}
+        ${a.type?`<span class="badge badge-${a.type}">${TYPE_LABEL[a.type]||a.type}</span>`:''}
         ${cs}
         <button class="btn-del" onclick="deleteAB(${i})">✕</button>
       </div>
@@ -642,10 +695,10 @@ function renderHistory() {
       <div class="hi-meta">
         ${a.date?`<span>${a.date}</span>`:''}
         ${a.opponent?`<span>vs ${a.opponent}</span>`:''}
-        ${a.dx!=null?'<span style="color:var(--accent)">方向あり</span>':''}
+        ${a.zone?`<span style="color:var(--accent)">📍${ZONE_NAMES[a.zone]}</span>`:''}
       </div>
     </div>`;
-  }).join('') + '</div>';
+  }).join('')+'</div>';
 }
 
 renderPlayerList();
